@@ -11,11 +11,12 @@
 
 #Buyer Routes AND Seller Routes
 
-Note : All the buyer routes and seller routes are protected routes .
-1.First login or register to get the token 
-2.Use the token to hit a call to api
-3.Buyer can only access their routes specified in the assignment using their token , they can't access seller's routes.
-4.Seller can only access their routes specified in the assignment using their token , they can't access buyer's routes.
+Note : All the buyer routes and seller routes are protected routes.
+
+1. First login or register to get the token 
+2. Use the token to hit a call to api
+3. Buyer can only access their routes specified in the assignment using their token , they can't access seller's routes.
+4. Seller can only access their routes specified in the assignment using their token , they can't access buyer's routes.
 
 
 #CHANGES 
