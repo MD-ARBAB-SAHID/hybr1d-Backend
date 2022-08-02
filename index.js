@@ -44,11 +44,11 @@ app.use((error,req,res,next)=>{
 
   
    
-    res.status(error.code || 500).json({message:error.message || "Something went wrong"});
+    return res.status(error.code || 500).json({message:error.message || "Something went wrong"});
     
 })
 
-mongoose.connect(`mongodb+srv://rocket:rp17@cluster0.7cxcdr0.mongodb.net/Hybr1d?retryWrites=true&w=majority`).then(()=>{
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.7cxcdr0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`).then(()=>{
     app.listen(process.env.PORT || 3000,()=>{
         console.log(`Running at port ${process.env.PORT || 3000}`)
     })
