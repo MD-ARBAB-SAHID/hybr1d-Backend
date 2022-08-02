@@ -6,7 +6,7 @@
 2. Clone this repository
 3. Add Env file which has been added in the mail
 4. In Command line enter the command "npm install" to download all the packages
-5. Use "npm start" OR "nodemon index.js" OR || "node index.js" to start the app
+5. Use "npm start" OR "nodemon index.js" OR "node index.js" to start the app
 
 
 ### Buyer Routes AND Seller Routes
