@@ -28,7 +28,7 @@ const auth = (req,res,next)=>{
         next();
     }catch(err)
     {
-        return next(new HttpError("Authorization failed",402));
+        return next(new HttpError("Authorization failed",401));
     }
 }
 

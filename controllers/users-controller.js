@@ -1,11 +1,12 @@
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator")
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Catalog = require("../models/Catalogs")
-const jwt = require("jsonwebtoken");
 const Buyer = require("../models/Buyers");
 const Seller = require("../models/Sellers");
-const mongoose = require("mongoose");
+
 
 
 const register = async (req,res,next)=>{
@@ -14,7 +15,7 @@ const register = async (req,res,next)=>{
     //checking for validation errors
     if(!errors.isEmpty())
 
-    return next(new HttpError("Invalid inputs passed,please check your inputs",404)) ;
+    return next(new HttpError("Invalid inputs passed,please check your inputs",406)) ;
 
 
 
@@ -32,10 +33,10 @@ const register = async (req,res,next)=>{
     } 
 
     if(existingBuyer)
-    return next(new HttpError("Buyer is already registered with the email id.",422))
+    return next(new HttpError("Buyer is already registered with the email id.",406))
 
     if(existingSeller)
-    return next(new HttpError("Seller is already registered with the email id.",422))
+    return next(new HttpError("Seller is already registered with the email id.",406))
     
 
 
@@ -107,7 +108,7 @@ let createdUser;
             return next(new HttpError("Could not sign you in,please try again",500));
     }
 
-    res.json({userId:createdUser.id,email:createdUser.email,token:token});
+    res.status(201).json({userId:createdUser.id,email:createdUser.email,token:token});
 }
 
 
@@ -128,7 +129,7 @@ const login = async (req,res,next)=>{
     //if no user found
     if(!existingBuyer && !existingSeller)
     {
-        return next(new HttpError("Invalid credentials",402));
+        return next(new HttpError("Invalid credentials",401));
     }
     
 
@@ -139,7 +140,7 @@ const login = async (req,res,next)=>{
 try{
     passIsValid = await bcrypt.compare(password,existingUser.password)
 }catch(err){
-    return next(new HttpError("Could not log you in,please check your credentials and try again",500))
+    return next(new HttpError("Could not log you in,please check your credentials and try again",401))
 }
    if(!passIsValid)
    {
@@ -156,7 +157,7 @@ try{
    }
 
 
-    res.json({userId:existingUser.id,email:existingUser.email,token:token});
+    res.status(200).json({userId:existingUser.id,email:existingUser.email,token:token});
 }
 
 
